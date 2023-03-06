@@ -1,0 +1,21 @@
+<p> 
+    Flight id: <%= @flight.id %> 
+    From: <%= @flight.departure.name %> 
+    To: <%= @flight.arrival.name %> 
+    Date: <%= @flight.start %> 
+    Flight duration: <%= @flight.duration %> 
+    Free seats: <%= @flight.empty_seats %> 
+    Passengers number: <%= @seats_number %>
+</p>
+
+<%= form_with model: @booking do |form| %>
+    <%= form.hidden_field :flight, value: @flight.id %>
+    <%= form.hidden_field :seats_number, value: @seats_number %>
+    <%= fields_for :passenger, @booking.passenger do |passenger_form| %>
+        <%= passenger_form.label :name, 'Full name:' %><br>
+        <%= passenger_form.text_field :name %><br>
+        <%= passenger_form.label :email, 'Email:' %><br>
+        <%= passenger_form.email_field :email %>
+    <% end %>
+    <%= form.submit 'Book' %>
+<% end %>

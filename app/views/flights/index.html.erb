@@ -1,0 +1,21 @@
+<%= form_with model: @flight, method: :get do |form| %>
+    <%= form.label :departure_id, "Departure airport:" %><br>
+    <%= form.collection_select :departure_id, Airport.order(:name), :id, :name %><br>
+    <%= form.label :arrival_id, "Arrival airport:" %><br>
+    <%= form.collection_select :arrival_id, Airport.order(:name), :id, :name %><br>
+    <%= form.label :empty_seats, "Number of passengers:" %><br>
+    <%= form.select :empty_seats, [1, 2, 3, 4] %><br>
+    <%= form.label :start, "Departure date:" %><br>
+    <%= form.date_select :start %>
+    <%= form.submit "Search" %>
+<% end %>
+
+<%= form_with url: new_booking_path, method: :get do |form| %>
+    <%= @flights.each do |flight| %>
+        <p> <%= flight.departure.name %> <%= flight.arrival.name %> <%= flight.start %> <%= flight.duration %> <%= flight.empty_seats %> </p>
+        <%= form.radio_button :flight, flight.id %>
+        <br>
+    <% end %>
+    <%= form.hidden_field :passengers_number, value: params[:flight][:empty_seats] %>
+    <%= form.submit 'Next' %>
+<% end %>
