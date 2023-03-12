@@ -1,0 +1,11 @@
+You successfully booked a flight:
+
+    Flight id: <%= @booking.flight.id %> 
+    From: <%= @booking.flight.departure.name %> 
+    To: <%= @booking.flight.arrival.name %> 
+    Date: <%= @booking.flight.start %> 
+    Flight duration: <%= @booking.flight.duration %> 
+    Passengers number: <%= @booking.seats_number %>
+
+
+Please follow this link and confirm your booking: <%= @url %>

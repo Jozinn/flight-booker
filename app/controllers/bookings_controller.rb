@@ -13,6 +13,7 @@ class BookingsController < ApplicationController
         if @booking.save
             flight = Flight.find(params[:booking][:flight])
             flight.update(empty_seats: (flight.empty_seats - 1))
+            PassengerMailer.with(passenger: @passenger, booking: @booking).confirm.deliver_now!
             redirect_to @booking
         else
             render :new, status: :unprocessable_entity
